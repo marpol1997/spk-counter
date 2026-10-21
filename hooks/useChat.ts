@@ -74,5 +74,15 @@ export function useChat() {
     if (error) throw error;
   };
 
-  return { messages, loading, sendMessage, editMessage, deleteMessage };
+  const reactToMessage = async (id: number, emoji: string) => {
+    const { error } = await supabase.rpc("toggle_reaction", { 
+      p_message_id: id, 
+      p_emoji: emoji 
+    });
+    if (error) throw error;
+  };
+
+  return { messages, loading, sendMessage, editMessage, deleteMessage, reactToMessage };
+
+ 
 }
