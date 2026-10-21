@@ -1,27 +1,24 @@
-export type PersonId = "anna" | "valeria";
-export type CounterId =
-  | "breakdown" | "threats" | "excavator"
-  | "claim" | "police" | "riot"| "drone";
-
-export interface Person {
-  id: PersonId;
-  name: string;
-  shortName: string;
+export interface Profile {
+  id: string;
+  display_name: string;
+  emoji: string;
+  role_tag: string;
+  avatar_url?: string | null; // <-- ДОБАВИЛИ
+  created_at: string;
+}
+export interface Counter {
+  id: string;
+  user_id: string;
   title: string;
   emoji: string;
-  gradient: string;
-}
-
-export interface CounterMeta {
-  id: CounterId;
-  label: string;
-  emoji: string;
+  value: number;
+  created_at: string;
 }
 
 export interface EventRow {
   id: number;
-  person_id: PersonId | "all";
-  counter_id: CounterId | "all";
+  user_id: string;
+  counter_id: string | null;
   delta: number;
   actor: string | null;
   note: string | null;
