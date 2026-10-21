@@ -9,9 +9,10 @@ interface Props {
   accent: "pink" | "purple";
   onIncrement: (e: React.MouseEvent) => void;
   onDecrement: () => void;
+  canEdit: boolean; // <-- ДОБАВИЛИ
 }
 
-export function CounterRow({ counter, value, accent, onIncrement, onDecrement }: Props) {
+export function CounterRow({ counter, value, accent, onIncrement, onDecrement, canEdit }: Props) {
   const [bump, setBump] = useState(false);
   const prev = useRef(value);
 
@@ -38,13 +39,9 @@ export function CounterRow({ counter, value, accent, onIncrement, onDecrement }:
       </span>
 
       <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-        <button
-          onClick={onDecrement}
-          aria-label="минус"
-          className="row-minus flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full text-base sm:text-lg text-bone/40 transition-all hover:bg-white/10 hover:text-bone active:scale-90"
-        >
-          −
-        </button>
+        {canEdit && (
+          <button onClick={onDecrement} aria-label="минус" className="row-minus flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full text-base sm:text-lg text-bone/40 transition-all hover:bg-white/10 hover:text-bone active:scale-90">−</button>
+        )}
 
         <motion.span
           animate={bump ? { scale: [1, 1.4, 1] } : {}}
@@ -54,19 +51,9 @@ export function CounterRow({ counter, value, accent, onIncrement, onDecrement }:
           {value}
         </motion.span>
 
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.85 }}
-          onClick={(e) => { prev.current = value; onIncrement(e); }}
-          aria-label="плюс"
-          className={`flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full text-white shadow-lg ${
-            accent === "pink"
-              ? "bg-gradient-to-br from-neon to-blood shadow-neon/60"
-              : "bg-gradient-to-br from-fuchsia-500 to-purple-700 shadow-fuchsia-500/60"
-          }`}
-        >
-          +
-        </motion.button>
+        {canEdit && (
+          <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.85 }} onClick={(e) => { prev.current = value; onIncrement(e); }} aria-label="плюс" className={`flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full text-white shadow-lg ${accent === "pink" ? "bg-gradient-to-br from-neon to-blood shadow-neon/60" : "bg-gradient-to-br from-fuchsia-500 to-purple-700 shadow-fuchsia-500/60"}`}>+</motion.button>
+        )}
       </div>
     </div>
   );

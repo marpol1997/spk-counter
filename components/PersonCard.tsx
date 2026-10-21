@@ -9,9 +9,10 @@ interface Props {
   counts: Record<CounterId, number>;
   onIncrement: (pid: PersonId, cid: CounterId, delta: number, e?: React.MouseEvent) => void;
   index: number;
+  canEdit: boolean; // <-- ДОБАВИЛИ
 }
 
-export function PersonCard({ person, counts, onIncrement, index }: Props) {
+export function PersonCard({ person, counts, onIncrement, index, canEdit }: Props) {
   const total = COUNTERS.reduce((s, c) => s + (counts[c.id] ?? 0), 0);
   const isAnna = person.id === "anna";
 
@@ -72,13 +73,14 @@ export function PersonCard({ person, counts, onIncrement, index }: Props) {
           <div className="space-y-1.5 sm:space-y-2">
             {COUNTERS.map((c) => (
               <CounterRow
-                key={c.id}
-                counter={c}
-                value={counts[c.id] ?? 0}
-                accent={isAnna ? "pink" : "purple"}
-                onIncrement={(e) => onIncrement(person.id, c.id, 1, e)}
-                onDecrement={() => onIncrement(person.id, c.id, -1)}
-              />
+    key={c.id}
+    counter={c}
+    value={counts[c.id] ?? 0}
+    accent={isAnna ? "pink" : "purple"}
+    onIncrement={(e) => onIncrement(person.id, c.id, 1, e)}
+    onDecrement={() => onIncrement(person.id, c.id, -1)}
+    canEdit={canEdit} // <-- ДОБАВИЛИ
+  />
             ))}
           </div>
 

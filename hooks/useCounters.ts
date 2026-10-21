@@ -82,8 +82,8 @@ export function useCounters() {
     return data as number;
   };
 
-  const reset = async (actor: string) => {
-    const { error } = await supabase.rpc("reset_all", { p_actor: actor });
+  const reset = async (pid: PersonId, actor: string) => {
+    const { error } = await supabase.rpc("reset_all", { p_person_id: pid, p_actor: actor });
     if (error) throw error;
   };
 
