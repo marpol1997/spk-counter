@@ -1,7 +1,7 @@
 export type PersonId = "anna" | "valeria";
 export type CounterId =
   | "breakdown" | "threats" | "excavator"
-  | "claim" | "police" | "riot";
+  | "claim" | "police" | "riot"| "drone";
 
 export interface Person {
   id: PersonId;

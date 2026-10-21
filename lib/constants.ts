@@ -26,6 +26,7 @@ export const COUNTERS: CounterMeta[] = [
   { id: "claim",     label: "Претензия от Теплогаза", emoji: "📄" },
   { id: "police",    label: "Вызов в полицию",        emoji: "👮‍♀️" },
   { id: "riot",      label: "Бунт на площадке",       emoji: "🔥" },
+  { id: "drone",     label: "Сколько дронов пролетело", emoji: "🛸" }, // <-- ДОБАВИЛИ ДРОНА
 ];
 
 export const MILESTONES = [10, 25, 50, 100, 200, 500] as const;

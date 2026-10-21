@@ -11,7 +11,6 @@ export function useEvents(limit = 20) {
     let mounted = true;
 
     (async () => {
-      // 1. Последние события для ленты
       const { data } = await supabase
         .from("events")
         .select("*")
@@ -19,7 +18,7 @@ export function useEvents(limit = 20) {
         .limit(limit);
       if (mounted && data) setEvents(data as EventRow[]);
 
-      // 2. Ищем последний сброс — чтобы неделя начиналась после него
+      // Ищем последний сброс
       const { data: lastReset } = await supabase
         .from("events")
         .select("created_at")
@@ -31,7 +30,6 @@ export function useEvents(limit = 20) {
       const resetAt = lastReset?.[0]?.created_at;
       const since = resetAt && resetAt > weekAgo ? resetAt : weekAgo;
 
-      // 3. Суммируем ВСЕ дельты (и +, и −) за период
       const { data: week } = await supabase
         .from("events")
         .select("delta")
@@ -49,10 +47,14 @@ export function useEvents(limit = 20) {
         { event: "INSERT", schema: "public", table: "events" },
         (payload) => {
           const row = payload.new as EventRow;
-          setEvents((prev) => [row, ...prev].slice(0, limit));
+          
           if (row.note === "reset") {
+            // Если это сброс — очищаем ленту и оставляем только запись о сбросе
+            setEvents([row]);
             setWeekTotal(0);
           } else {
+            // Иначе просто добавляем в начало
+            setEvents((prev) => [row, ...prev].slice(0, limit));
             setWeekTotal((t) => Math.max(0, (t ?? 0) + row.delta));
           }
         }
