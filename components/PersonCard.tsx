@@ -59,7 +59,7 @@ export function PersonCard({ person, counts, onIncrement, index, canEdit }: Prop
 
             <div className="min-w-0 flex-1">
               <div className="text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.35em] text-amber/70">
-                {isAnna ? "Seraphim" : "Valkyrie"}
+                {isAnna ? "Queen" : "Valkyrie"}
               </div>
               <h2 className="mt-0.5 sm:mt-1 font-display text-lg sm:text-2xl font-bold uppercase leading-tight tracking-wide text-bone">
                 {person.name}
