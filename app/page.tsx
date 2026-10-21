@@ -11,7 +11,7 @@ import { supabase } from "@/lib/supabase";
 import { useDashboard } from "@/hooks/useDashboard";
 import { HEARTS, MESSAGES, MILESTONES } from "@/lib/constants";
 import { randomOf } from "@/lib/utils";
-
+import { FloatingChat } from "@/components/FloatingChat";
 export default function Home() {
   const [session, setSession] = useState<any>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -134,6 +134,11 @@ function MainApp({ session, onLoginClick }: { session: any; onLoginClick: () => 
             </button>
           )}
         </div>
+        <FloatingChat 
+          profiles={profiles} 
+          currentUserId={currentUserId} 
+          canChat={!!currentUserId} 
+        />
       </main>
     </>
   );

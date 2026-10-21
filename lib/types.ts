@@ -24,3 +24,10 @@ export interface EventRow {
   note: string | null;
   created_at: string;
 }
+
+export interface Message {
+  id: number;
+  user_id: string;
+  text: string;
+  created_at: string;
+}
