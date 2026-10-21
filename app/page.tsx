@@ -55,10 +55,11 @@ export default function Home() {
     <>
       <Background />
 
-      <main className="relative min-h-screen pb-24">
+      {/* Добавили overflow-x-hidden, чтобы айфон не сдвигал контент вправо */}
+      <main className="relative min-h-screen pb-24 overflow-x-hidden">
         <Header weekTotal={weekTotal} />
 
-        <div className="mx-auto mt-14 grid max-w-5xl gap-6 px-6 md:grid-cols-2">
+        <div className="mx-auto mt-10 sm:mt-14 grid max-w-5xl gap-6 px-4 sm:px-6 md:grid-cols-2">
           {PEOPLE.map((p, i) => (
             <PersonCard
               key={p.id}
@@ -72,10 +73,10 @@ export default function Home() {
 
         <ActivityFeed events={events} />
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex justify-center px-4">
           <button
             onClick={handleReset}
-            className="rounded-full border border-neon/40 bg-black/50 px-6 py-2.5 text-sm font-display uppercase tracking-widest text-neon-rose backdrop-blur transition-all hover:border-neon hover:bg-black/70 hover:shadow-[0_0_30px_rgba(255,45,149,.5)]"
+            className="w-full sm:w-auto rounded-full border border-neon/40 bg-black/50 px-6 py-3 sm:py-2.5 text-sm font-display uppercase tracking-widest text-neon-rose backdrop-blur transition-all hover:border-neon hover:bg-black/70 hover:shadow-[0_0_30px_rgba(255,45,149,.5)]"
           >
             🌙 Обнулить ритуалом
           </button>
